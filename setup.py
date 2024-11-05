@@ -6,7 +6,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 __version__ = 'v1.0'
 
 setuptools.setup(
-    name='uit_tokenizer',
+    name='OpenaiBatchAPI',
     packages=setuptools.find_packages(),
     version=__version__,
     author='IT.DAINB',
