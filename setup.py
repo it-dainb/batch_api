@@ -10,7 +10,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     version=__version__,
     author='IT.DAINB',
-    author_email='itdainb@gmail.com',
+    author_email='it.dainb@gmail.com',
     description='OpenaiBatchAPI: A Python Library that support OpenAI Batch API',
     long_description=long_description,
     long_description_content_type='text/markdown',
