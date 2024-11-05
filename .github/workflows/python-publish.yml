@@ -60,19 +60,21 @@ jobs:
     - name: Build package
       run: python -m build
 
-    - name: Rename wheel files
+    - name: Rename wheel files (Windows)
+      if: runner.os == 'Windows'
       run: |
-        if [[ ${{ runner.os }} == "Windows" ]]; then
-          Get-ChildItem dist\*.whl | ForEach-Object {
-            $newName = "$($_.BaseName)-${{ matrix.os }}-${{ matrix.python-version }}$($_.Extension)"
-            Rename-Item $_.FullName $newName
-          }
-        else
-          for wheel in dist/*.whl; do
-            new_name="${wheel%.whl}-${{ matrix.os }}-${{ matrix.python-version }}.whl"
-            mv "$wheel" "$new_name"
-          done
-        fi
+        Get-ChildItem dist\*.whl | ForEach-Object {
+          $newName = "$($_.BaseName)-${{ matrix.os }}-${{ matrix.python-version }}$($_.Extension)"
+          Rename-Item $_.FullName $newName
+        }
+    
+    - name: Rename wheel files
+      if: runner.os != 'Windows'
+      run: |
+        for wheel in dist/*.whl; do
+          new_name="${wheel%.whl}-${{ matrix.os }}-${{ matrix.python-version }}.whl"
+          mv "$wheel" "$new_name"
+        done
 
     - name: Upload distributions
       uses: actions/upload-artifact@v4
