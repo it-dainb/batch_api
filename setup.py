@@ -25,7 +25,7 @@ setuptools.setup(
         'Programming Language :: Python :: 3.11',
     ],
     include_package_data=True,
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     install_requires = [
         'uuid',
         'orjsonl',
