@@ -62,11 +62,10 @@ jobs:
 
     - name: Rename wheel files
       run: |
-        for wheel in dist/*.whl; do
-          base_name=$(basename "$wheel" .whl)
-          new_name="${base_name}-${{ matrix.os }}-${{ matrix.python-version }}.whl"
-          mv "$wheel" "dist/${new_name}"
-        done
+        wheel=dist/*.whl
+        base_name=$(basename "$wheel" .whl)
+        new_name="${base_name}-${{ matrix.os }}-${{ matrix.python-version }}.whl"
+        mv "$wheel" "dist/${new_name}"
 
     - name: Upload distributions
       uses: actions/upload-artifact@v4
