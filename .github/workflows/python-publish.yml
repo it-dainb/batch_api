@@ -62,10 +62,14 @@ jobs:
 
     - name: Rename wheel files
       run: |
-        wheel=dist/*.whl
-        base_name=$(basename "$wheel" .whl)
-        new_name="${base_name}-${{ matrix.os }}-${{ matrix.python-version }}.whl"
-        mv "$wheel" "dist/${new_name}"
+        BASE_NAME=$(python -c "import toml; print(toml.load('pyproject.toml')['tool']['poetry']['name'])")
+        OS_NAME=$(echo "${{ runner.os }}" | tr '[:upper:]' '[:lower:]')
+        PYTHON_VERSION=${{ matrix.python-version }}
+        WHEEL_FILE=$(python -c "import glob; print(glob.glob('dist/*.whl')[0])")
+        
+        NEW_WHEEL_NAME="${BASE_NAME}_${OS_NAME}_${PYTHON_VERSION}.whl"
+        echo "Renaming $WHEEL_FILE to $NEW_WHEEL_NAME"
+        mv "$WHEEL_FILE" "dist/$NEW_WHEEL_NAME"
 
     - name: Upload distributions
       uses: actions/upload-artifact@v4
