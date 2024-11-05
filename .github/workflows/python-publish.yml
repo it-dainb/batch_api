@@ -25,12 +25,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Hack for setup-python cache
+      run: touch requirements.txt
     
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
         cache: 'pip'
+    
+    - name: Hack for setup-python cache # https://github.com/actions/setup-python/issues/807
+      run: rm requirements.txt
         
     - name: Display Python version
       run: |
