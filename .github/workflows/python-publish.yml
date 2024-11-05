@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Upload Python Package
+name: Build and upload to PyPI
 
 on:
   release:
@@ -63,7 +63,7 @@ jobs:
     - name: Upload distributions
       uses: actions/upload-artifact@v4
       with:
-        name: release-dists
+        name: release-dists--${{ matrix.os }}-${{ matrix.python-version }}
         path: dist/
   
   pypi-publish:
@@ -82,7 +82,8 @@ jobs:
     - name: Retrieve release distributions
       uses: actions/download-artifact@v4
       with:
-        name: release-dists
+        name: release-dists-*
+        merge-multiple: true
         path: dist/
           
     - name: Publish release distributions to PyPI
