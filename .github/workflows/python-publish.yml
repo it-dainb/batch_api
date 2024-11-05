@@ -62,7 +62,7 @@ jobs:
 
     - name: Rename wheel files
       run: |
-        if [ "${{ runner.os }}" == "Windows" ]; then
+        if [[ ${{ runner.os }} == "Windows" ]]; then
           Get-ChildItem dist\*.whl | ForEach-Object {
             $newName = "$($_.BaseName)-${{ matrix.os }}-${{ matrix.python-version }}$($_.Extension)"
             Rename-Item $_.FullName $newName
