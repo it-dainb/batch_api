@@ -25,11 +25,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Hack setup-python cache
-      if: hashFiles('**/requirements.txt', '**/pyproject.toml') == ''
-      run: |
-        touch ./requirements.txt
     
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v5
