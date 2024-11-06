@@ -1,10 +1,4 @@
-import os
 from setuptools import setup, find_packages
-from setuptools.dist import Distribution
-
-class BinaryDistribution(Distribution):
-    def is_pure(self):
-        return False
 
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
@@ -24,11 +18,11 @@ setup(
     url='https://github.com/it-dainb/batch_api.git',
 	license='Apache License 2.0',
     classifiers=[
-        'Topic :: Scientific/Engineering :: Artificial Intelligence',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
         'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
     ],
     include_package_data=True,
     python_requires='>=3.8',
