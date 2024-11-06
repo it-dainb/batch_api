@@ -5,7 +5,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 # Define the package version
-__version__ = '1.0.2'
+__version__ = '1.1.0'
 
 # Setup function for your package
 setup(
