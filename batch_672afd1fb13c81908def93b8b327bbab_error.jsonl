@@ -1,1 +1,0 @@
-{"id": "batch_req_672afd2136a48190be97412fa5e2484d", "custom_id": "831acf3dcccb4b36919dc51c44954c99_0<custom_id>calc_0", "response": {"status_code": 400, "request_id": "56abf1b2a514a7bc99f8e3222f4b523a", "body": {"error": {"message": "Unrecognized request argument supplied: batch_size", "type": "invalid_request_error", "param": null, "code": null}}}, "error": null}
