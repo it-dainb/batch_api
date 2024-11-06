@@ -34,5 +34,6 @@ setup(
         'orjsonl',
         'openai',
         'tqdm',
+        'prettytable'
     ]
 )
