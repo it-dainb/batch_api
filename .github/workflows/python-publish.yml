@@ -44,6 +44,11 @@ jobs:
           python -m setup.py bdist_wheel --dist-dir=wheelhouse
           ls -l wheelhouse
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-${{ matrix.python-version }}
+          path: ./wheelhouse/*.whl
+
   upload_pypi:
     name: Upload to PyPI
     needs: build_wheels
@@ -52,7 +57,7 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          name: pure-python-wheel-*
+          pattern: wheel-*
           path: dist
           merge-multiple: true
 
