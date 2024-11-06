@@ -24,6 +24,7 @@ batch_client = OpenaiBatchAPI(
 
 messages = []
 
+# For custom ID (ID is set to "calc_{i}" for each message)
 for i in range(7):
     messages.append(
         {
@@ -34,6 +35,15 @@ for i in range(7):
                     "content": f"Calculate:  1 + {i} = "
                 }
             ]
+        }
+    )
+
+# For auto ID (ID will be the index of the message in the list)
+for i in range(7):
+    messages.append(
+        {
+            "role": "user",
+            "content": f"Calculate:  1 + {i} = "
         }
     )
 
