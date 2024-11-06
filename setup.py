@@ -9,7 +9,7 @@ __version__ = '1.0.1'
 
 # Setup function for your package
 setup(
-    name='openai_batch_api',
+    name='OpenaiBatchAPI',
     packages=find_packages(),
     version=__version__,
     author='IT.DAINB',
