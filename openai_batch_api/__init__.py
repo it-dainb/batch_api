@@ -108,7 +108,9 @@ class OpenaiBatchAPI:
             dict: The updated keyword arguments.
         """
         self.identity = uuid.uuid4().hex
+
         kargs['model'] = kargs.get('model', 'gpt-4o-mini')
+        kargs['batch_size'] = kargs.get('batch_size', 20)
 
         self.batch_folder = tempfile.TemporaryDirectory(prefix = f"{self.identity}_")
         self.batch_folder_path = self.batch_folder.name
@@ -271,7 +273,7 @@ class OpenaiBatchAPI:
         kargs = self.setup(**kargs)
 
         reqs = self.prepare_reqs(messages, **kargs)
-        files = self.prepare_batchs(reqs, **kargs)
+        files = self.prepare_batchs(reqs, batch_size=kargs.get('batch_size'))
         batchs = self.send_batchs(files)
         batchs = self.retrieve_batchs(batchs)
 
