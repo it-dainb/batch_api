@@ -33,8 +33,6 @@ setup(
         'uuid',
         'orjsonl',
         'openai',
-        'tempfile',
         'tqdm',
-        'wheel',  # Ensure the wheel package is installed
     ]
 )
