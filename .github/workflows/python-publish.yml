@@ -41,7 +41,7 @@ jobs:
       # Build the wheel
       - name: Build pure Python wheel
         run: |
-          python -m setup.py bdist_wheel --dist-dir=wheelhouse
+          python setup.py bdist_wheel --dist-dir=wheelhouse
           ls -l wheelhouse
 
       - uses: actions/upload-artifact@v4
