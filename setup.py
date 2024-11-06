@@ -1,5 +1,5 @@
 import os
-from setuptools import setup
+from setuptools import setup, find_packages
 from setuptools.dist import Distribution
 
 class BinaryDistribution(Distribution):
@@ -11,9 +11,9 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 __version__ = 'v1.0'
 
-setuptools.setup(
+setup(
     name='OpenaiBatchAPI',
-    packages=setuptools.find_packages(),
+    packages=find_packages(),
     version=__version__,
     author='IT.DAINB',
     author_email='it.dainb@gmail.com',
