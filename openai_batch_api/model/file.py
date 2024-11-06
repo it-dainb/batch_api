@@ -1,6 +1,6 @@
-from openai.types import FileObject
-from openai import OpenAI
 import json
+from openai import OpenAI
+from openai.types import FileObject
 
 class File:
     def __init__(self, client: OpenAI, path: str = None, id: str = None):

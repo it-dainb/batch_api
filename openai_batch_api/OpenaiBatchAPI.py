@@ -1,12 +1,10 @@
-import uuid, orjsonl, os
-from openai import OpenAI
-import time
-from tempfile import TemporaryDirectory
-from tqdm.auto import tqdm
-
 from .model import Batch
-import math
+from openai import OpenAI
+
+from tqdm.auto import tqdm
 from prettytable import PrettyTable
+import uuid, orjsonl, os, time, math
+from tempfile import TemporaryDirectory
 
 class OpenaiBatchAPI:
     def __init__(

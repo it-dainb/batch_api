@@ -4,8 +4,8 @@ from ..utils import get_prices
 from openai import OpenAI
 from datetime import datetime
 
-from openai.types import Batch as OpenaiBatch
 from typing import Literal
+from openai.types import Batch as OpenaiBatch
 
 Status = Literal[
     None, "validating", "failed", "in_progress", "finalizing", "completed", "expired", "cancelling", "cancelled"
