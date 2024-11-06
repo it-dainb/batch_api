@@ -1,7 +1,3 @@
-Here’s a refactored version of the documentation with better split and output organization for readability.
-
----
-
 # OpenaiBatchAPI: A Python Library for OpenAI Batch API
 [OpenAI Batch API Documentation](https://platform.openai.com/docs/guides/batch)
 
