@@ -11,26 +11,16 @@ permissions:
   contents: read
 
 jobs:
-  build_wheels:
-    name: ${{ matrix.os }} - ${{ matrix.python-version }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest, macos-13]
-        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]  # Full set of Python versions
+  deploy:
+    runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
       # Set up Python
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}  # Set Python version from matrix
-
-      # Conditionally skip macOS for Python versions < 3.11
-      - name: Skip macOS for Python < 3.11
-        if: runner.os == 'macos-latest' && (matrix.python-version == '3.8' || matrix.python-version == '3.9' || matrix.python-version == '3.10')
-        run: |
-          echo "Skipping macOS for Python ${matrix.python-version}, as it is less than 3.11."
+          python-version: '3.x'
 
       # Install build tools
       - name: Install build tools
@@ -39,29 +29,13 @@ jobs:
           python -m pip install -U setuptools wheel build
 
       # Build the wheel
-      - name: Build pure Python wheel
+      - name: Build Python wheel
         run: |
-          python setup.py sdist bdist_wheel
+          python setup.py bdist_wheel
           ls -l dist
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: wheel-${{ matrix.os }}-${{ matrix.python-version }}
-          path: dist/*.whl
-
-  upload_pypi:
-    name: Upload to PyPI
-    needs: build_wheels
-    runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published'
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: wheel-*
-          path: dist
-          merge-multiple: true
-
       - name: Publish to PyPI
+        if: github.event_name == 'release' && github.event.action == 'published'
         uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
         with:
           user: __token__
