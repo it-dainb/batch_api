@@ -1,4 +1,10 @@
-import setuptools
+import os
+from setuptools import setup
+from setuptools.dist import Distribution
+
+class BinaryDistribution(Distribution):
+    def is_pure(self):
+        return False
 
 with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
