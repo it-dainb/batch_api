@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build_wheels:
-    name: Build pure Python wheel on ${{ matrix.os }}
+    name: ${{ matrix.os }} - ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -42,6 +42,7 @@ jobs:
       - name: Build pure Python wheel
         run: |
           python -m pip wheel --no-deps --wheel-dir=wheelhouse .
+          ls -l wheelhouse
 
       # Rename the wheels for Windows separately
       - name: Rename wheel for Windows
@@ -50,6 +51,9 @@ jobs:
           set python_version=${{ matrix.python-version }}
           set wheel_name=wheelhouse\*.whl
           set base_name=%~nXw
+
+          # Check if wheel file exists
+          dir wheelhouse\*.whl
 
           # Rename based on Python version and architecture
           if "%python_version%"=="3.8" (
@@ -70,12 +74,17 @@ jobs:
           del "%wheel_name%"
 
 
+
       # Rename Linux/macOS wheels
       - name: Rename wheel for Linux/macOS
         if: runner.os != 'Windows'
         run: |
           python_version="${{ matrix.python-version }}"
           platform=$(uname -s | tr '[:upper:]' '[:lower:]')  # Detect platform (e.g., 'linux', 'darwin')
+
+          # Check if wheel file exists
+          ls -l wheelhouse/*.whl
+
           wheel_name=wheelhouse/*.whl
 
           if [[ "$platform" == "linux" ]]; then
@@ -84,12 +93,6 @@ jobs:
             mv "$wheel_name" "${wheelhouse}/$(basename "$wheel_name" .whl)-cp${python_version//./}-macos.whl"
           fi
 
-
-      # Upload the built wheels as artifacts
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pure-python-wheel-${{ matrix.os }}-${{ matrix.python-version }}
-          path: ./wheelhouse/*.whl
 
   upload_pypi:
     name: Upload to PyPI
