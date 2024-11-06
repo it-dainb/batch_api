@@ -41,58 +41,8 @@ jobs:
       # Build the wheel
       - name: Build pure Python wheel
         run: |
-          python -m pip wheel --no-deps --wheel-dir=wheelhouse .
+          python -m setup.py bdist_wheel --dist-dir=wheelhouse
           ls -l wheelhouse
-
-      # Rename the wheels for Windows separately
-      - name: Rename wheel for Windows
-        if: runner.os == 'Windows'
-        run: |
-          set python_version=${{ matrix.python-version }}
-          set wheel_name=wheelhouse\*.whl
-          set base_name=%~nXw
-
-          # Check if wheel file exists
-          dir wheelhouse\*.whl
-
-          # Rename based on Python version and architecture
-          if "%python_version%"=="3.8" (
-            ren "%wheel_name%" "%base_name%-cp38-win32.whl"
-            ren "%wheel_name%" "%base_name%-cp38-win_amd64.whl"  # Also support 64-bit for 3.8
-          ) else if "%python_version%"=="3.9" (
-            ren "%wheel_name%" "%base_name%-cp39-win32.whl"
-            ren "%wheel_name%" "%base_name%-cp39-win_amd64.whl"  # Also support 64-bit for 3.9
-          ) else if "%python_version%"=="3.10" (
-            ren "%wheel_name%" "%base_name%-cp310-win32.whl"
-            ren "%wheel_name%" "%base_name%-cp310-win_amd64.whl"  # Also support 64-bit for 3.10
-          ) else if "%python_version%"=="3.11" (
-            ren "%wheel_name%" "%base_name%-cp311-win_amd64.whl"
-          ) else if "%python_version%"=="3.12" (
-            ren "%wheel_name%" "%base_name%-cp312-win_amd64.whl"
-          )
-
-          del "%wheel_name%"
-
-
-
-      # Rename Linux/macOS wheels
-      - name: Rename wheel for Linux/macOS
-        if: runner.os != 'Windows'
-        run: |
-          python_version="${{ matrix.python-version }}"
-          platform=$(uname -s | tr '[:upper:]' '[:lower:]')  # Detect platform (e.g., 'linux', 'darwin')
-
-          # Check if wheel file exists
-          ls -l wheelhouse/*.whl
-
-          wheel_name=wheelhouse/*.whl
-
-          if [[ "$platform" == "linux" ]]; then
-            mv "$wheel_name" "${wheelhouse}/$(basename "$wheel_name" .whl)-cp${python_version//./}-manylinux_2_28_x86_64.whl"
-          elif [[ "$platform" == "darwin" ]]; then
-            mv "$wheel_name" "${wheelhouse}/$(basename "$wheel_name" .whl)-cp${python_version//./}-macos.whl"
-          fi
-
 
   upload_pypi:
     name: Upload to PyPI
