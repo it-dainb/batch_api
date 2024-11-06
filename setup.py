@@ -25,7 +25,7 @@ setup(
         'Programming Language :: Python :: 3.12',
     ],
     include_package_data=True,
-    python_requires='>=3.8',
+    python_requires='>=3.8, <=3.12',
     install_requires=[
         'uuid',
         'orjsonl',
