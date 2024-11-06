@@ -5,11 +5,11 @@ with open('README.md', 'r', encoding='utf-8') as f:
     long_description = f.read()
 
 # Define the package version
-__version__ = '1.0'
+__version__ = '1.0.1'
 
 # Setup function for your package
 setup(
-    name='OpenaiBatchAPI',
+    name='openai_batch_api',
     packages=find_packages(),
     version=__version__,
     author='IT.DAINB',

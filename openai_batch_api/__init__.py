@@ -51,7 +51,7 @@ class OpenaiBatchAPI:
                 }
             else:
                 message = {
-                    "id": f"{self.identity}_{i}_{message['id']}",
+                    "id": f"{self.identity}_{i}<custom_id>{message['id']}",
                     "content": message["content"]
                 }
 
@@ -195,7 +195,7 @@ class OpenaiBatchAPI:
 
         datas = [
             {
-                "custom_id": data["custom_id"],
+                "custom_id": data["custom_id"].split("<custom_id>")[-1],
                 "response": data['response']['body']['choices']
             }
             for data in datas
@@ -271,7 +271,7 @@ class OpenaiBatchAPI:
         kargs = self.setup(**kargs)
 
         reqs = self.prepare_reqs(messages, **kargs)
-        files = self.prepare_batchs(reqs)
+        files = self.prepare_batchs(reqs, **kargs)
         batchs = self.send_batchs(files)
         batchs = self.retrieve_batchs(batchs)
 
