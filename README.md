@@ -6,7 +6,7 @@
 You can install this package from PyPI using [pip](http://www.pip-installer.org):
 
 ```
-$ pip install openai_batch_api
+$ pip install OpenaiBatchAPI
 ```
 
 ## Example
