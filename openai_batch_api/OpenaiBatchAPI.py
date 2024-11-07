@@ -91,7 +91,7 @@ class OpenaiBatchAPI:
                     max_retry=self.max_retry,
                     timeout=self.timeout
                 ))
-                time.sleep(self.req_cooldown)
+                time.sleep(self.batch_cooldown)
 
         return batchs
     
